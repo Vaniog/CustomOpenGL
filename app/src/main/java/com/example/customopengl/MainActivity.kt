@@ -11,7 +11,7 @@ import kotlin.math.tanh
 class SomeSpace : Space() {
     private var t = 0
     fun cube(a_ : Double, color : Int) {
-        var a = a_ / 2;
+        val a = a_ / 2
         square(-a, a, a, a, a, a, a, a, -a, -a, a, -a, color)
         square(a, a, a, -a, a, a, -a, -a, a, a, -a, a, color)
         square(a, -a, a, -a, -a, a, -a, -a, -a, a, -a, -a, color)
@@ -21,7 +21,7 @@ class SomeSpace : Space() {
     }
 
     fun cubeOld(a_ : Double) {
-        var a = a_ / 2;
+        val a = a_ / 2
         for (i in 0..3) {
             triangle(a, a, a, a, a, -a, -a, a, -a, Color.BLUE)
             triangle(a, a, a, -a, a, -a, -a, a, a, Color.BLUE)
@@ -43,11 +43,11 @@ class SomeSpace : Space() {
 
         zoom(0.65, 0.65, 0.65)
 
-        translate(0.0, -5.0, 0.0)
-        rotateY(t * 0.02)
         rotateX(cos(t * 0.03))
         rotateY(cos(t * 0.03))
         rotateZ(cos(t * 0.03))
+        translate(0.0, -5.0, 0.0)
+        rotateY(t * 0.02)
 
 
         pushMatrix()
@@ -127,7 +127,7 @@ class SomeSpace : Space() {
         cube(0.5, Color.BLACK)
         popMatrix()
 
-        translate(0.0, -1.0, -3.0);
+        translate(0.0, -1.0, -3.0)
         zoom(2.0 + cos(t * 0.09) * 1.5, 2.0 + cos(t * 0.07) * 1.3, 1.0)
         cube(1.0, Color.RED)
 
