@@ -43,6 +43,9 @@ open class Space {
                          p3x : Double, p3y : Double, p3z : Double, color: Int){
         val triangle = DrawableTriangle(Point(p1x, p1y, p1z), Point(p2x, p2y, p2z), Point(p3x, p3y, p3z), color)
         triangle.transform(matrixStack[matrixStack.lastIndex])
+        triangle.normalize()
+        if (triangle.normal.z <= 0)
+            return
         triangle.transform(camera.frustumMatrix)
         objects.add(triangle)
     }
@@ -52,8 +55,36 @@ open class Space {
         val triangle = DrawableTriangle(Point(p1x, p1y, p1z), Point(p2x, p2y, p2z), Point(p3x, p3y, p3z), color)
         triangle.transform(matrixStack[matrixStack.lastIndex])
         triangle.normalize()
+        if (triangle.normal.z <= 0)
+            return
         triangle.transform(camera.frustumMatrix)
         objects.add(triangle)
+    }
+
+    fun square(p1x : Double, p1y : Double, p1z : Double,
+                 p2x : Double, p2y : Double, p2z : Double,
+                 p3x : Double, p3y : Double, p3z : Double,
+                 p4x : Double, p4y : Double, p4z : Double, color: Int){
+        val square = DrawableSquare(Point(p1x, p1y, p1z), Point(p2x, p2y, p2z), Point(p3x, p3y, p3z), Point(p4x, p4y, p4z), color)
+        square.transform(matrixStack[matrixStack.lastIndex])
+        square.normalize()
+        if (square.normal.z <= 0)
+            return
+        square.transform(camera.frustumMatrix)
+        objects.add(square)
+    }
+
+    fun square(p1x : Int, p1y : Int, p1z : Int,
+               p2x : Int, p2y : Int, p2z : Int,
+               p3x : Int, p3y : Int, p3z : Int,
+               p4x : Int, p4y : Int, p4z : Int, color: Int){
+        val square = DrawableSquare(Point(p1x, p1y, p1z), Point(p2x, p2y, p2z), Point(p3x, p3y, p3z), Point(p4x, p4y, p4z), color)
+        square.transform(matrixStack[matrixStack.lastIndex])
+        square.normalize()
+        if (square.normal.z <= 0)
+            return
+        square.transform(camera.frustumMatrix)
+        objects.add(square)
     }
 
     fun translate(dx : Double, dy : Double, dz : Double){

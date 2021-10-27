@@ -7,10 +7,11 @@ import android.graphics.Path
 import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
-import kotlin.math.sqrt
+import kotlin.math.max
+import kotlin.math.min
 
-class DrawableTriangle(
-    private var point1 : Point, private var point2: Point, private var point3: Point,
+class DrawableSquare(
+    private var point1 : Point, private var point2: Point, private var point3: Point, private var point4 : Point,
     private var color : Int) : DrawableObject(){
     var normal = Vector(0.0, 0.0, 1.0)
 
@@ -21,10 +22,12 @@ class DrawableTriangle(
         var matrix1 = MatrixMath(arrayOf(arrayOf(point1.x, point1.y, point1.z, 1.0)))
         var matrix2 = MatrixMath(arrayOf(arrayOf(point2.x, point2.y, point2.z, 1.0)))
         var matrix3 = MatrixMath(arrayOf(arrayOf(point3.x, point3.y, point3.z, 1.0)))
+        var matrix4 = MatrixMath(arrayOf(arrayOf(point4.x, point4.y, point4.z, 1.0)))
 
         matrix1 *= matrix
         matrix2 *= matrix
         matrix3 *= matrix
+        matrix4 *= matrix
 
         point1 = Point(matrix1.array[0][0] / matrix1.array[0][3],
             matrix1.array[0][1] / matrix1.array[0][3],
@@ -37,6 +40,10 @@ class DrawableTriangle(
         point3 = Point(matrix3.array[0][0] / matrix3.array[0][3],
             matrix3.array[0][1] / matrix3.array[0][3],
             matrix3.array[0][2] / matrix3.array[0][3])
+
+        point4 = Point(matrix4.array[0][0] / matrix4.array[0][3],
+            matrix4.array[0][1] / matrix4.array[0][3],
+            matrix4.array[0][2] / matrix4.array[0][3])
     }
 
     fun normalize(){
@@ -51,10 +58,7 @@ class DrawableTriangle(
 
     override fun draw(canvas: Canvas, width : Double, cx : Float, cy : Float) {
         val paint = Paint()
-        var k = (normal.z + 1.0) / 2.0
-        if (k < 0.5)
-            return
-        k *= k * k
+        var k = normal.z
         paint.color = Color.rgb((color.red * k.toFloat()).toInt(), (color.green * k.toFloat()).toInt(), (color.blue * k.toFloat()).toInt())
         canvas.apply {
             val path = Path()
@@ -68,12 +72,20 @@ class DrawableTriangle(
             path.lineTo(
                 cx + (width * point3.x).toFloat(),
                 cy - (width * point3.y).toFloat())
+            path.lineTo(
+                cx + (width * point4.x).toFloat(),
+                cy - (width * point4.y).toFloat())
             drawPath(path, paint)
         }
     }
 
     override fun getZ() : Double{
-        return (point1.z + point2.z + point3.z) / 3.0
+        var ret = point1.z;
+        ret = min(ret, point2.z)
+        ret = min(ret, point3.z)
+        ret = min(ret, point4.z)
+        return ret
+        return (point1.z + point2.z + point3.z + point4.z) / 4.0
     }
 
 }
