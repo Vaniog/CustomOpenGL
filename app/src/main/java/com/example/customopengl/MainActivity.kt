@@ -6,38 +6,23 @@ import android.os.Bundle
 import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.cos
-import kotlin.math.tanh
 
 class SomeSpace : Space() {
     private var t = 0
-    fun cube(a_ : Double, color : Int) {
+    private fun cube(a_: Double, color : Int) {
         val a = a_ / 2
-        square(-a, a, a, a, a, a, a, a, -a, -a, a, -a, color)
-        square(a, a, a, -a, a, a, -a, -a, a, a, -a, a, color)
-        square(a, -a, a, -a, -a, a, -a, -a, -a, a, -a, -a, color)
-        square(-a, a, -a, a, a, -a, a, -a, -a, -a, -a, -a, color)
-        square(-a, a, a, -a, a, -a, -a, -a, -a, -a, -a, a, color)
-        square(a, a, -a, a, a, a, a, -a, a, a, -a, -a, color)
-    }
-
-    fun cubeOld(a_ : Double) {
-        val a = a_ / 2
-        for (i in 0..3) {
-            triangle(a, a, a, a, a, -a, -a, a, -a, Color.BLUE)
-            triangle(a, a, a, -a, a, -a, -a, a, a, Color.BLUE)
-            rotateX(PI / 2.0)
-        }
-
-        for (i in 0..1) {
-            triangle(a, a, a, a, -a, a, a, -a, -a, Color.BLUE)
-            triangle(a, a, a, a, -a, -a, a, a, -a, Color.BLUE)
-            rotateZ(PI)
-        }
+        color3d(color)
+        square(-a, a, a, a, a, a, a, a, -a, -a, a, -a)
+        square(a, a, a, -a, a, a, -a, -a, a, a, -a, a)
+        square(a, -a, a, -a, -a, a, -a, -a, -a, a, -a, -a)
+        square(-a, a, -a, a, a, -a, a, -a, -a, -a, -a, -a)
+        square(-a, a, a, -a, a, -a, -a, -a, -a, -a, -a, a)
+        square(a, a, -a, a, a, a, a, -a, a, a, -a, -a)
     }
 
     override fun onFrame() {
         t++
-        translate(0.0, 0.0, 8.0)
+        translate(0.0, 0.0, -8.0)
         rotateX(-PI / 4.0)
         zoom(0.1, 0.1, 0.1)
 
@@ -53,10 +38,10 @@ class SomeSpace : Space() {
         pushMatrix()
         rotateZ(3 * PI / 4)
         rotateX(-cos(t * 0.05) * 1.5)
-        for (i in 0..9){
+        for (i in 0..9) {
             cube(1.0, Color.BLUE)
             translate(0.0, 1.0, 0.0)
-            rotateZ(  PI / 40)
+            rotateZ(PI / 40)
             rotateX(cos(t * 0.08) * 0.13)
         }
         popMatrix()
@@ -64,15 +49,15 @@ class SomeSpace : Space() {
         pushMatrix()
         rotateZ(-3 * PI / 4)
         rotateX(cos(t * 0.05) * 1.5)
-        for (i in 0..9){
+        for (i in 0..9) {
             cube(1.0, Color.BLUE)
             translate(0.0, 1.0, 0.0)
-            rotateZ(  -PI / 40)
+            rotateZ(-PI / 40)
             rotateX(-cos(t * 0.08) * 0.13)
         }
         popMatrix()
 
-        for (i in 0..9){
+        for (i in 0..9) {
             cube(1.0, Color.BLUE)
             translate(0.0, 1.0, 0.0)
             rotateX(cos(t * 0.05) * 0.05)
@@ -84,25 +69,25 @@ class SomeSpace : Space() {
         pushMatrix()
         rotateZ(3 * PI / 4)
         rotateX(t * 0.03)
-        for (i in 0..9){
+        for (i in 0..9) {
             cube(1.0, Color.BLUE)
             translate(0.0, 1.0, 0.0)
-            rotateZ(  PI / 40 + cos(t * 0.05) * 0.08)
+            rotateZ(PI / 40 + cos(t * 0.05) * 0.08)
         }
         popMatrix()
 
         pushMatrix()
         rotateZ(-3 * PI / 4)
         rotateX(t * 0.03 + PI)
-        for (i in 0..9){
+        for (i in 0..9) {
             cube(1.0, Color.BLUE)
             translate(0.0, 1.0, 0.0)
-            rotateZ(  PI / -40 - cos(t * 0.05) * 0.08)
+            rotateZ(PI / -40 - cos(t * 0.05) * 0.08)
         }
         popMatrix()
 
 
-        for (i in 0..1){
+        for (i in 0..1) {
             cube(1.0, Color.BLUE)
             translate(0.0, 1.0, 0.0)
             rotateX(cos(t * 0.05) * 0.1)
@@ -138,7 +123,7 @@ class SomeSpace : Space() {
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val mySurfaceView = MySurfaceView(this, SomeSpace())
+        val mySurfaceView = GLSurfaceView(this, SomeSpace())
 
         setContentView(mySurfaceView)
     }

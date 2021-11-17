@@ -7,7 +7,6 @@ import android.graphics.Path
 import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
-import kotlin.math.sqrt
 
 class DrawableTriangle(
     private var point1 : Point, private var point2: Point, private var point3: Point,

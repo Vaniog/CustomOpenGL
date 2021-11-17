@@ -7,7 +7,6 @@ import android.graphics.Path
 import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
-import kotlin.math.max
 import kotlin.math.min
 
 class DrawableSquare(
@@ -58,7 +57,7 @@ class DrawableSquare(
 
     override fun draw(canvas: Canvas, width : Double, cx : Float, cy : Float) {
         val paint = Paint()
-        var k = normal.z
+        val k = normal.z
         paint.color = Color.rgb((color.red * k.toFloat()).toInt(), (color.green * k.toFloat()).toInt(), (color.blue * k.toFloat()).toInt())
         canvas.apply {
             val path = Path()
@@ -80,12 +79,11 @@ class DrawableSquare(
     }
 
     override fun getZ() : Double{
-        var ret = point1.z;
+        var ret = point1.z
         ret = min(ret, point2.z)
         ret = min(ret, point3.z)
         ret = min(ret, point4.z)
         return ret
-        return (point1.z + point2.z + point3.z + point4.z) / 4.0
     }
 
 }

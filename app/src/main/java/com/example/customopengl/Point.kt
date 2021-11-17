@@ -7,9 +7,7 @@ class Point(var x : Double, var y : Double, var z : Double) {
     constructor (x : Double, y : Double, z : Double, color: Int) : this(x, y, z){
         this.color = color
     }
-    constructor (x : Int, y : Int, z : Int) : this(x.toDouble(), y.toDouble(), z.toDouble()){
-        this.color = color
-    }
+    constructor (x : Int, y : Int, z : Int) : this(x.toDouble(), y.toDouble(), z.toDouble())
     constructor (x : Int, y : Int, z : Int, color: Int) : this(x, y, z){
         this.color = color
     }

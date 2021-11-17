@@ -8,7 +8,7 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 import androidx.annotation.RequiresApi
 
-class MySurfaceView (context: Context, private val space : Space) : SurfaceView(context), SurfaceHolder.Callback {
+class GLSurfaceView (context: Context, space : Space) : SurfaceView(context), SurfaceHolder.Callback {
 
     private var surfaceThread = SurfaceDrawingThread(holder, space)
 
@@ -28,7 +28,7 @@ class MySurfaceView (context: Context, private val space : Space) : SurfaceView(
     }
 }
 
-class SurfaceDrawingThread(private val surfaceHolder: SurfaceHolder, val space : Space) : Thread(){
+class SurfaceDrawingThread(private val surfaceHolder: SurfaceHolder, private val space : Space) : Thread(){
     private var go = true
 
     fun kill(){

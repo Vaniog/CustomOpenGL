@@ -7,10 +7,9 @@ class Vector {
     var x = 0.0
     var y = 0.0
     var z = 0.0
-    var length = 0.0
+    private var length = 0.0
 
-    init {
-    }
+
     constructor(x : Double, y : Double, z : Double){
         this.x = x
         this.y = y
